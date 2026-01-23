@@ -8,6 +8,7 @@ import { SERVER_PORT } from './config/env.js';
 import authRouter from './routes/auth.routes.js';
 import cardRouter from './routes/card.routes.js';
 import packRouter from './routes/pack.routes.js';
+import userRouter from './routes/user.routes.js';
 import collectionRouter from './routes/collection.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,7 @@ client.connect();
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/cards', cardRouter)
+app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/packs', packRouter)
 app.use('/api/v1/collections', collectionRouter)
