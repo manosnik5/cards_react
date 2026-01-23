@@ -50,6 +50,7 @@ body {
   line-height: 110%;
   letter-spacing: -2%;
   font-size: 40px;
+  font-size: clamp(40px, 15.5774647887px + 4.0845070423vw, 60px);
   font-weight: 400;
   
 }
