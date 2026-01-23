@@ -53,7 +53,7 @@ export const fetchUserCollection = async () => {
 
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/v1/collections", // no userId in URL
+      "http://localhost:5000/api/v1/collections",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,7 +73,8 @@ export const fetchUserCollection = async () => {
 
 
 export const fetchCards = async () => {
-    const response = await axios.get(
+    try{
+      const response = await axios.get(
         'http://localhost:5000/api/v1/cards'
       );
       return response.data.map((card) => ({
@@ -92,15 +93,113 @@ export const fetchCards = async () => {
         set: card.set,
         image: card.image,
       }));
+  } catch (error) {
+    throw new Error(error);
+  }
+    
 }
 
 export const fetchPacks = async () => {
-  const response = await axios.get("http://localhost:5000/api/v1/packs")
+  try{
+      const response = await axios.get("http://localhost:5000/api/v1/packs")
   return response.data.map((pack) => ({
     packID: pack.id,
     packName: pack.pack_name,
     packImage: `http://localhost:5000/public/assets/${pack.pack_image}.png`,
     packYear: pack.pack_year,
   }))
+  } catch (error) {
+    throw new Error(error);
+  }
+ 
+}
+
+export const fetchUsers = async () => {
+   try{
+    const token = sessionStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+      const response = await axios.get(
+      "http://localhost:5000/api/v1/users",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  
+  return response.data.map((user) => ({
+    id: user.userid,
+    name: user.username,
+    email: user.email,
+    role: user.role
+  }))
+  } catch (error) {
+    throw new Error(error);
+  }
+  
+}
+
+export const updateUserRole = async (userId, role) => {
+  try{
+    const token = sessionStorage.getItem("token");
+    if (!token) throw new Error("No token found"); 
+
+    const response = await axios.put(`http://localhost:5000/api/v1/users/${userId}/role`,
+      {role},
+      {
+         headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    return response
+  }catch (error) {
+    throw new Error(error);
+  }
+}
+
+export const addUser = async (name, email, password, role) => {
+  try{
+    const token = sessionStorage.getItem("token");
+    if (!token) throw new Error("No token found");  
+  const response = await axios.post(
+      `http://localhost:5000/api/v1/users/`,
+      {
+        name,
+        email,
+        password,
+        role
+      },
+       {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+  return response
+
+  } catch (error) {
+    throw new Error(error);
+  }
+  
+}
+
+export const deleteUser = async (userId) => {
+  try{
+     const token = sessionStorage.getItem("token");
+  if (!token) throw new Error("No token found");
+
+  const response = await axios.delete(`http://localhost:5000/api/v1/users/${userId}`, {
+    headers: {Authorization: `Bearer ${token}`}
+  });
+
+  return response
+  }catch (error) {
+    throw new Error(error);
+  }
+ 
+
 }
 
