@@ -13,10 +13,15 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: 'No such user' });
 
     const doesPasswordMatch = await bcrypt.compare(password, user.password);
+    
     if (!doesPasswordMatch) return res.status(400).json({ message: 'Wrong password' });
 
     const token = jwt.sign(
-      { userId: user.userid }, 
+      { 
+        userId: user.userid,
+        username: user.username,
+        role: user.role
+       }, 
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
@@ -88,12 +93,3 @@ export const register = async (req, res, next) => {
   }
 }
 
-export const getUsers = async (req, res, next) => {
-  try{
-    const result = await client.query('SELECT * FROM users')
-    
-    res.json(result.rows);
-  }catch(error){
-    res.status(500).send(error.message);
-  }
-}
