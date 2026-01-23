@@ -1,0 +1,103 @@
+.add-user-row-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.add-user-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .add-user-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.input-group {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem; 
+  border: 1px solid #d1d5db; 
+  border-radius: 0.25rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-blue-500 */
+  border-color: #3b82f6;
+}
+
+.actions-group {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-green {
+  background-color: #16a34a; 
+}
+
+.btn-green:hover {
+  background-color: #15803d;
+}
+
+.btn-gray {
+  background-color: #6b7280; 
+}
+
+.btn-gray:hover {
+  background-color: #4b5563; 
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.add-user-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-user-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-user-button img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.add-user-button:hover {
+  opacity: 0.7; 
+}

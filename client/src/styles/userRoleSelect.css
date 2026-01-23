@@ -1,0 +1,14 @@
+.user-role-select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.user-role-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: #f2f2f2;
+}
