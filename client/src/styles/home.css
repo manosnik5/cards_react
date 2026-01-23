@@ -7,14 +7,13 @@
   grid-template-rows: repeat(10, 10vh);
   margin: 0;
   padding: 0;
-  min-height: 80vh;
+  height: 100vh;
   width: 85vw;               
   left: 50%;                 
   transform: translateX(-50%);
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  font-family: "Poppins";
   padding-top: 60px;  
           
 }
@@ -28,11 +27,9 @@
 .text_container h1{
   width: 100%;
   color: var(--text);
-  font-family: 'Roboto';
-  line-height: 110%;
-  letter-spacing: -2%;
-  font-size: 60px;
-  font-weight: 900;
+  font-size: 36px;
+  font-size: clamp(36px, 15.5774647887px + 4.0845070423vw, 80px);
+  line-height: 100%;
   margin-bottom: 16px;
 }
 
@@ -100,19 +97,19 @@
 
 
 .pack:nth-child(2){
-  background-image: url("http://localhost:5000/public/assets/pack1.png"); 
+  background-image: url("http://192.168.2.5:5000/public/assets/pack1.png"); 
   transform: translateX(-10%) rotate(-1deg)
 }
 .pack:nth-child(4){
-  background-image: url("http://localhost:5000/public/assets/pack2.png"); 
+  background-image: url("http://192.168.2.5:5000/public/assets/pack2.png"); 
   transform: rotate(2deg)
 }
 .pack:nth-child(6){
-  background-image: url("http://localhost:5000/public/assets/pack3.png"); 
+  background-image: url("http://192.168.2.5:5000/public/assets/pack3.png"); 
   transform: translateX(-6%) rotate(-3deg)
 }
 .pack:nth-child(8){
-  background-image: url("http://localhost:5000/public/assets/pack4.png"); 
+  background-image: url("http://192.168.2.5:5000/public/assets/pack4.png"); 
   transform: translate(10%, 3%) rotate(5deg)
 }
 .card:nth-child(1){

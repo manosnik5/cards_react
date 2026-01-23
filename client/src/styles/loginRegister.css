@@ -26,9 +26,7 @@
   box-shadow: var(--shadow);
 }
 
-.loginRegister_container:hover{
-  background: var(--gradient-hover);
-}
+
 .loginRegister_container h1{
   text-align: center;
   color: var(--text);
