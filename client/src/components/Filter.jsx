@@ -26,6 +26,7 @@ export const Filter = () => {
         : [...selected, type]
     );
   };
+  const sortedLevelTypes = levelTypes.map(Number).sort((a, b) => a - b)
 
   return (
     <div className='filter_options_container'>
@@ -61,7 +62,7 @@ export const Filter = () => {
 
       <h2>Card Level</h2>
       <div className="card_type_section">
-        {levelTypes.map((type, index) => (
+        {sortedLevelTypes.map((type, index) => (
           <li key={index}>
             <button
               className={`option_btn ${selectedLevels.includes(type) ? 'selected' : ''}`}
