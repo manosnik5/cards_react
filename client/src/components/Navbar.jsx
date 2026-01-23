@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import '../styles/navbar.css'
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 
+'framer-motion';
 import { yugiohLogo, menu, close } from '../assets/index.js'
 
 export const Navbar = () => {
-  const user = JSON.parse(sessionStorage.getItem("user"))
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 630);
   const [LinksMenuToggle, SetLinksMenuToggle] = useState(false)
+
+  const isAdmin = user?.role === "Admin"
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,9 +27,10 @@ export const Navbar = () => {
   }, []);
 
   const logout = () => {
-    sessionStorage.removeItem("user");
-    window.location.reload();
-  }
+  sessionStorage.clear();
+  SetLinksMenuToggle(false);
+  window.location.href = "/login";
+};
 
   return (
     <motion.div 
@@ -45,6 +49,8 @@ export const Navbar = () => {
               <Link to="/" className='link hover-underline-animation'>Home</Link>
               <Link to="/shop" className='link hover-underline-animation'>Shop</Link>
               <Link to="/collection" className='link hover-underline-animation'>Collection</Link>
+              {isAdmin && (<Link to="/admin-dashboard" className='link hover-underline-animation'>Admin Dashboard</Link>)}
+              
               {!user ? 
                 <Link to="/login" className='login_btn light'>
                   Login
@@ -75,6 +81,7 @@ export const Navbar = () => {
                       <Link to="/" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Home</Link>
                       <Link to="/shop" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Shop</Link>
                       <Link to="/collection" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Collection</Link>
+                      {isAdmin && (<Link to="/admin-dashboard" className='link hover-underline-animation'>Admin Dashboard</Link>)}
                       {!user ? 
                         <Link to="/login" className='login_btn light'>
                           Login
