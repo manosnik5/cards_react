@@ -1,6 +1,7 @@
-import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom'
 import '../styles/home.css'
+
 
 
 export const Home = () => {
@@ -33,15 +34,15 @@ export const Home = () => {
           </motion.div>
         </div>
         <div className='text_container'>
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}>
-            <motion.h1
+            <h1
             initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 1 }}
-              >Yugioh Card Simulator</motion.h1>
+              >Yugioh Card Simulator</h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -60,7 +61,7 @@ export const Home = () => {
               Start
             </motion.button></Link>
            
-          </motion.div>
+          </div>
         </div>
         
       </div>
