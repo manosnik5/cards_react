@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card } from "./Card.jsx"
 import { CardStats } from "./CardStats.jsx"
 import { Sort } from "./Sort.jsx"
@@ -6,7 +6,7 @@ import {useQuery} from "@tanstack/react-query"
 import { fetchUserCollection } from "../services/apiClient.js"
 import '../styles/collection.css'
 import { filter, search } from "../assets/index.js"
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams  } from 'react-router-dom';
 import { useFilterSort } from "../Contexts/FilterSortContext.jsx"
 import { Loader } from "./Loader.jsx"
 import { Error } from "./Error.jsx"
@@ -14,18 +14,61 @@ import { Error } from "./Error.jsx"
 
 export const Collection = () => {
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {
     selectedTypes,
+    setSelectedTypes,
     selectedAttributes,
+    setSelectedAttributes,
     selectedLevels,
+    setSelectedLevels,
     selectedMonsterSpellTrapTypes,
-    selectedSortOption
+    setSelectedMonsterSpellTrapTypes,
+    selectedSortOption,
+    setSelectedSortOption
   } = useFilterSort();
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isSortbtnPressed, setisSortbtnPressed] = useState(false);
   const [searchCard, setsearchCard] = useState('');
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    const types = searchParams.get('types');
+    const attributes = searchParams.get('attributes');
+    const levels = searchParams.get('levels');
+    const monsterSpellTrapTypes = searchParams.get('monsterSpellTrapTypes');
+    const sort = searchParams.get('sort');
+    const searchQuery = searchParams.get('search');
+
+    if (types) setSelectedTypes(types.split(','));
+    if (attributes) setSelectedAttributes(attributes.split(','));
+    if (levels) setSelectedLevels(levels.split(',').map(Number));
+    if (monsterSpellTrapTypes) setSelectedMonsterSpellTrapTypes(monsterSpellTrapTypes.split(','));
+    if (sort) setSelectedSortOption(sort);
+    if (searchQuery) {
+      setsearchCard(searchQuery);
+      setInputValue(searchQuery);
+    }
+
+ 
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (selectedTypes.length > 0) params.set('types', selectedTypes.join(','));
+    if (selectedAttributes.length > 0) params.set('attributes', selectedAttributes.join(','));
+    if (selectedLevels.length > 0) params.set('levels', selectedLevels.join(','));
+    if (selectedMonsterSpellTrapTypes.length > 0) params.set('monsterSpellTrapTypes', selectedMonsterSpellTrapTypes.join(','));
+    if (selectedSortOption) params.set('sort', selectedSortOption);
+    if (searchCard) params.set('search', searchCard);
+
+    setSearchParams(params, { replace: true });
+  }, [selectedTypes, selectedAttributes, selectedLevels, selectedMonsterSpellTrapTypes, selectedSortOption, searchCard]);
+
+    
 
 
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -50,7 +93,7 @@ export const Collection = () => {
   queryFn: () => fetchUserCollection(),
 });
 
-console.log(cards)
+
 
 if (isLoadingCards) { return (
      <div className="loader_container">
@@ -76,8 +119,6 @@ if (isLoadingCards) { return (
   const rarityTypes = [...new Set(cards.map((card) => card.rarity))];
   const packTypes = [...new Set(cards.map((card) => card.set))];
 
-
-  console.log(cardTypes)
   // Apply filters
   const filteredCards = cards.filter((card) => {
     const matchesType = (!selectedTypes || selectedTypes.length === 0) || selectedTypes.includes(card.frametype);
@@ -96,8 +137,6 @@ if (isLoadingCards) { return (
 
   // Apply sorting
   let sortedCards = [...filteredCards];
-
-  console.log(sortedCards)
 
  if (!selectedSortOption) {
   // Default sort by cardTypeOrder
