@@ -20,7 +20,8 @@ app.use(cors());
 
 client.connect();
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
+
 
 app.use('/api/v1/cards', cardRouter)
 app.use('/api/v1/users', userRouter)
