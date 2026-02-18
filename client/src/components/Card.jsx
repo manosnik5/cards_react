@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { rarityImages } from '../utils/imageMaps.js';
 import '../styles/card.css';
 
-const backCardUrl = "http://localhost:5000/public/assets/backCard.png";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const backCardUrl = `${API_URL}/assets/backCard.png`;
 
 export const Card = ({ data, onClick, flippable = false }) => {
   const {
@@ -23,7 +24,9 @@ export const Card = ({ data, onClick, flippable = false }) => {
     if (onClick) onClick(); 
   };
 
-  const shownImage = flippable && isFlipped ? backCardUrl : image;
+  const cardImageUrl = image.startsWith("http") ? image : `${API_URL}/assets/${image}`;
+  const shownImage = flippable && isFlipped ? backCardUrl : cardImageUrl;
+
 
   return (
     <div className="card_container" onClick={handleClick}>
