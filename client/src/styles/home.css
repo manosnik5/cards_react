@@ -97,19 +97,19 @@
 
 
 .pack:nth-child(2){
-  background-image: url("http://192.168.2.5:5000/assets/pack1.png"); 
+  background-image: url("http://localhost:5000/assets/pack1.png"); 
   transform: translateX(-10%) rotate(-1deg)
 }
 .pack:nth-child(4){
-  background-image: url("http://192.168.2.5:5000/assets/pack2.png"); 
+  background-image: url("http://localhost:5000/assets/pack2.png"); 
   transform: rotate(2deg)
 }
 .pack:nth-child(6){
-  background-image: url("http://192.168.2.5:5000/assets/pack3.png"); 
+  background-image: url("http://localhost:5000/assets/pack3.png"); 
   transform: translateX(-6%) rotate(-3deg)
 }
 .pack:nth-child(8){
-  background-image: url("http://192.168.2.5:5000/assets/pack4.png"); 
+  background-image: url("http://localhost:5000/assets/pack4.png"); 
   transform: translate(10%, 3%) rotate(5deg)
 }
 .card:nth-child(1){
