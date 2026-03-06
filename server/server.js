@@ -18,16 +18,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-client.connect();
-
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
-
-app.use('/api/v1/cards', cardRouter)
-app.use('/api/v1/users', userRouter)
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/packs', packRouter)
-app.use('/api/v1/collections', collectionRouter)
+app.use('/api/v1/cards', cardRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/packs', packRouter);
+app.use('/api/v1/collections', collectionRouter);
 
 if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../Frontend/dist")));
@@ -36,7 +33,18 @@ if (NODE_ENV === "production") {
   });
 }
 
+const start = async () => {
+  try {
+    await client.connect();
+  } catch (err) {
+    console.error('Failed to connect to the database. Please verify your DATABASE_URL and that Postgres is running.');
+    console.error(err);
+    process.exit(1);
+  }
 
-app.listen(SERVER_PORT, () => {
+  app.listen(SERVER_PORT, () => {
     console.log(`Server running at http://localhost:${SERVER_PORT}`);
   });
+};
+
+start();
