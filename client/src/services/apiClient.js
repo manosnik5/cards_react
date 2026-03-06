@@ -1,10 +1,14 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5000/api/v1" : "/api/v1"
+
+
+    
+
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await axios.post(`${API_URL}/api/v1/auth/login`, {
+    const response = await axios.post(`${API_URL}/auth/login`, {
       username,
       password,
     });
@@ -16,7 +20,7 @@ export const loginUser = async (username, password) => {
 
 export const registerUser = async (username, email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/api/v1/auth/register`, {
+    const response = await axios.post(`${API_URL}/auth/register`, {
       username,
       email,
       password,
@@ -50,7 +54,7 @@ export const fetchUserCollection = async () => {
   if (!token) throw new Error("No token found");
 
   try {
-    const response = await axios.get(`${API_URL}/api/v1/collections`, {
+    const response = await axios.get(`${API_URL}/collections`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -67,7 +71,7 @@ export const fetchUserCollection = async () => {
 
 export const fetchCards = async () => {
   try {
-    const response = await axios.get(`${API_URL}/api/v1/cards`);
+    const response = await axios.get(`${API_URL}/cards`);
     return response.data.map((card) => ({
       id: card.id,
       name: card.name,
@@ -91,7 +95,7 @@ export const fetchCards = async () => {
 
 export const fetchPacks = async () => {
   try {
-    const response = await axios.get(`${API_URL}/api/v1/packs`);
+    const response = await axios.get(`${API_URL}/packs`);
     return response.data.map((pack) => ({
       packID: pack.id,
       packName: pack.pack_name,
@@ -108,7 +112,7 @@ export const fetchUsers = async () => {
     const token = sessionStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.get(`${API_URL}/api/v1/users`, {
+    const response = await axios.get(`${API_URL}/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -128,7 +132,7 @@ export const updateUserRole = async (userId, role) => {
     const token = sessionStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.put(`${API_URL}/api/v1/users/${userId}/role`, 
+    const response = await axios.put(`${API_URL}/users/${userId}/role`, 
       { role },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -144,7 +148,7 @@ export const addUser = async (name, email, password, role) => {
     const token = sessionStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.post(`${API_URL}/api/v1/users/`,
+    const response = await axios.post(`${API_URL}/users/`,
       { name, email, password, role },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -160,7 +164,7 @@ export const deleteUser = async (userId) => {
     const token = sessionStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.delete(`${API_URL}/api/v1/users/${userId}`, {
+    const response = await axios.delete(`${API_URL}/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
