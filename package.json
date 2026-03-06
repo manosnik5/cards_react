@@ -1,0 +1,21 @@
+{
+  "name": "cards_react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+		"start": "npm start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manos500/cards_react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manos500/cards_react/issues"
+  },
+  "homepage": "https://github.com/manos500/cards_react#readme",
+  "description": ""
+}
