@@ -12,8 +12,7 @@ export const Login = () => {
     e.preventDefault();
     try{
       const data = await loginUser(username, password);
-      console.log("Login successful", data);
-
+   
       const { token, user } = data.data;
 
       sessionStorage.setItem("user", JSON.stringify(user));
