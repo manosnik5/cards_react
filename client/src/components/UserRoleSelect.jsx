@@ -1,4 +1,4 @@
-import '../styles/UserRoleSelect.css'
+import '../styles/userRoleSelect.css'
 import { updateUserRole } from '../services/apiClient';
 
 const UserRoleSelect = ({ userId, role}) => {
