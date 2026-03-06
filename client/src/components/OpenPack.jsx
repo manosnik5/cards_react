@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCards, unlockCards } from '../services/apiClient.js';
 import { PackContext } from '../Contexts/PackContext.jsx';
-import '../styles/openPack.css';
+import '../styles/openpack.css';
 import { Card } from './Card.jsx';
 import { drawCards } from '../utils/randomCards';
 import { CardStats } from './CardStats.jsx';
