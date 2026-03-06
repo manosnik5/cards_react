@@ -13,7 +13,6 @@ export const Register = () => {
     e.preventDefault();
     try{
       const data = await registerUser(username, email, password)
-      console.log("Login successful", data);
       navigate("/login");
     } catch (error){
       alert(error.message);
