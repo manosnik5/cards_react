@@ -2,18 +2,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom'
 import '../styles/home.css'
 
-
-
 export const Home = () => {
 
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  const token = sessionStorage.getItem("token");
-
-  if (user && token) {
-    console.log(user,token);
-  } else {
-    console.log("Ο χρήστης δεν είναι συνδεδεμένος.");
-  }
   return (
     <div>
       <div className='home_container'>
