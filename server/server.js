@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { client } from './connection.js';
-import { SERVER_PORT } from './config/env.js';
+import { SERVER_PORT, NODE_ENV } from './config/env.js';
 
 import authRouter from './routes/auth.routes.js';
 import cardRouter from './routes/card.routes.js';
@@ -29,11 +29,11 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/packs', packRouter)
 app.use('/api/v1/collections', collectionRouter)
 
-if(process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../Frontend/dist")))
+if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../Frontend/dist")));
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../Frontend/dist/index.html"))
-  })
+    res.sendFile(path.resolve(__dirname, "../Frontend/dist/index.html"));
+  });
 }
 
 
