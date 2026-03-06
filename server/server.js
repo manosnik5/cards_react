@@ -29,6 +29,13 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/packs', packRouter)
 app.use('/api/v1/collections', collectionRouter)
 
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../Frontend/dist")))
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../Frontend/dist/index.html"))
+  })
+}
+
 
 app.listen(SERVER_PORT, () => {
     console.log(`Server running at http://localhost:${SERVER_PORT}`);
