@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCards, unlockCards } from '../services/apiClient.js';
 import { PackContext } from '../Contexts/PackContext.jsx';
-import '../styles/openpack.css';
+import '../styles/openPack.css';
 import { Card } from './Card.jsx';
 import { drawCards } from '../utils/randomCards';
 import { CardStats } from './CardStats.jsx';
@@ -26,7 +26,7 @@ export const OpenPack = () => {
     if (!cards || !selectedPack) return;
     const filteredByPack = cards.filter(card => card.set === selectedPack.packName);
 
-    const newCards = drawCards(filteredByPack);
+    const newCards = [...new Map(drawCards(filteredByPack).map(card => [card.id, card])).values()];
 
     newCards.sort((a, b) => {
       const indexA = rarityOrder.indexOf(a.rarity);
