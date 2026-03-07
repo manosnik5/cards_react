@@ -1,9 +1,7 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5000/api/v1" : "/api/v1"
-
-
-    
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5000" : ""
 
 
 export const loginUser = async (username, password) => {
@@ -37,7 +35,7 @@ export const unlockCards = async (cardId) => {
     if (!token) throw new Error("No token found");
 
     const response = await axios.put(
-      `${API_URL}/api/v1/cards/unlockCards`,
+      `${API_URL}/cards/unlockCards`,
       { cardId },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -61,7 +59,7 @@ export const fetchUserCollection = async () => {
     // Prepend full API_URL to image
     return response.data.map((card) => ({
       ...card,
-      image: card.image.startsWith("http") ? card.image : `${API_URL}/assets/${card.image}`,
+      image: card.image.startsWith("http") ? card.image : `${BASE_URL}/assets/${card.image}`,
     }));
   } catch (error) {
     console.error("fetchUserCollection API error:", error.response?.data || error.message);
@@ -86,7 +84,7 @@ export const fetchCards = async () => {
       attribute: card.attribute,
       rarity: card.rarity,
       set: card.set,
-      image: card.image.startsWith("http") ? card.image : `${API_URL}/assets/${card.image}`,
+      image: card.image.startsWith("http") ? card.image : `${BASE_URL}/assets/${card.image}`,
     }));
   } catch (error) {
     throw new Error(error);
@@ -99,7 +97,7 @@ export const fetchPacks = async () => {
     return response.data.map((pack) => ({
       packID: pack.id,
       packName: pack.pack_name,
-      packImage: pack.pack_image.startsWith("http") ? pack.pack_image : `${API_URL}/assets/${pack.pack_image}`,
+      packImage: pack.pack_image.startsWith("http") ? pack.pack_image : `${BASE_URL}/assets/${pack.pack_image}`,
       packYear: pack.pack_year,
     }));
   } catch (error) {
