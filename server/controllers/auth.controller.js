@@ -1,9 +1,10 @@
 import { client } from "../connection.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET, JWT_EXPIRES_IN } from "../config/env.js";
 import bcrypt from 'bcrypt';
 
 export const login = async (req, res) => {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
   try {
     const { username, password } = req.body;
 

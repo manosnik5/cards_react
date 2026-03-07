@@ -1,9 +1,8 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { client } from './connection.js';
-import { SERVER_PORT, NODE_ENV } from './config/env.js';
 
 import authRouter from './routes/auth.routes.js';
 import cardRouter from './routes/card.routes.js';
@@ -26,25 +25,13 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/packs', packRouter);
 app.use('/api/v1/collections', collectionRouter);
 
-if (NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../Frontend/dist")));
   app.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../Frontend/dist/index.html"));
   });
 }
 
-const start = async () => {
-  try {
-    await client.connect();
-  } catch (err) {
-    console.error('Failed to connect to the database. Please verify your DATABASE_URL and that Postgres is running.');
-    console.error(err);
-    process.exit(1);
-  }
-
-  app.listen(SERVER_PORT, () => {
-    console.log(`Server running at http://localhost:${SERVER_PORT}`);
-  });
-};
-
-start();
+app.listen(process.env.PORT || process.env.SERVER_PORT || 5000, () => {
+  console.log(`Server running at http://localhost:${process.env.PORT || 5000}`);
+});
