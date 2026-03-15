@@ -81,7 +81,7 @@ export const Navbar = () => {
                       <Link to="/" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Home</Link>
                       <Link to="/shop" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Shop</Link>
                       <Link to="/collection" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Collection</Link>
-                      {isAdmin && (<Link to="/admin-dashboard" className='link hover-underline-animation'>Admin Dashboard</Link>)}
+                      {isAdmin && (<Link to="/admin-dashboard" className='link hover-underline-animation' onClick={() => SetLinksMenuToggle(false)}>Admin Dashboard</Link>)}
                       {!user ? 
                         <Link to="/login" className='login_btn light'>
                           Login
