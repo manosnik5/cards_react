@@ -24,7 +24,8 @@ export const registerUser = async (username, email, password) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error("Invalid credentials");
+    const message = error.response?.data?.message || error.message || "Registration failed";
+    throw new Error(message);
   }
 };
 
