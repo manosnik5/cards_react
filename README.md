@@ -2,8 +2,6 @@
 
 A full-stack collectible card game where users can open card packs, build their collection, and manage their inventory. Features include user authentication, pack opening mechanics, and a comprehensive collection management system.
 
-![Card Collector Demo](./screenshots/demo.gif)
-
 ## ✨ Features
 
 - 🎴 **Card Collection System** - Collect and manage unique cards
@@ -17,52 +15,40 @@ A full-stack collectible card game where users can open card packs, build their 
 
 ### Frontend
 - **React 18** - UI framework
-- **TypeScript** - Type-safe JavaScript
+- **JavaScript** - Programming language
 - **Vite** - Build tool and dev server
-- **React Router DOM** - Client-side routing
-- **Axios** - HTTP client
 - **CSS3** - Custom styling
 
 ### Backend
 - **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **PostgreSQL** - Relational database
+- **Express** - Web framework for API routes
+- **PostgreSQL (Neon)** - Serverless PostgreSQL database
 - **Better Auth** - Authentication system
 - **bcrypt** - Password hashing
 - **JWT** - Token-based authentication
-- **node-pg** - PostgreSQL client
 
-### Development
-- **dotenv** - Environment variable management
+### Development Tools
+- **React Router DOM** - Client-side routing
+- **Axios** - HTTP client
+- **dotenv** - Environment variables
 - **CORS** - Cross-origin resource sharing
-
-## 📸 Screenshots
-
-### Collection View
-![Collection](./screenshots/collection.png)
-
-### Pack Opening
-![Pack Opening](./screenshots/pack-opening.png)
-
-### User Dashboard
-![Dashboard](./screenshots/dashboard.png)
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+
-- PostgreSQL 14+
+- Neon Database account
 - npm or yarn
 
 ### Installation
 
-**Clone the repository**
+1. **Clone the repository**
 ```bash
 git clone https://github.com/manosnik5/cards_react.git
 cd cards_react
 ```
 
-**Install dependencies**
+2. **Install dependencies**
 ```bash
 # Backend
 cd server
@@ -73,22 +59,56 @@ cd ../client
 npm install
 ```
 
-**Environment Variables**
+3. **Database Setup (Neon)**
+
+- Go to [neon.tech](https://neon.tech)
+- Create a new project
+- Create a database named `cards_game`
+- Copy the connection string
+
+Create the database schema:
+```bash
+# Connect to your Neon database
+psql "postgresql://user:password@host.neon.tech/cards_game?sslmode=require"
+
+# Run your schema file (if you have one)
+\i database/schema.sql
+```
+
+4. **Environment Variables**
 
 Create `.env` in `/server`:
 ```env
 # Server Configuration
 PORT=5000
+SERVER_PORT=5000
 NODE_ENV=development
 
-# Database
-DATABASE_URL=postgresql://username:password@localhost:5432/cards_game
+# Database (Neon)
+DATABASE_URL=postgresql://neondb_owner:password@host.neon.tech/cards_game?sslmode=require
 
 # Authentication
 JWT_SECRET=your_jwt_secret_key_here
 JWT_EXPIRES_IN=7d
 
-**Run the application**
+# Client
+CLIENT_URL=http://localhost:5173
+```
+
+Create `.env` in `/client`:
+```env
+VITE_API_URL=http://localhost:5000/api/v1
+```
+
+5. **Seed Database (Optional)**
+
+Add sample cards:
+```bash
+cd server
+npm run seed
+```
+
+6. **Run the application**
 ```bash
 # Backend (from /server)
 npm run dev
